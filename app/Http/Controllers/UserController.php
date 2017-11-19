@@ -20,12 +20,18 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository,UserTransformer $userTransformer){
         $this->userRepository = $userRepository;
         $this->userTransformer = $userTransformer;
-        $this->middleware('auth:api');
+        $this->middleware('auth:api',['except'=>['show']]);
     }
 
 
     public function show(){
         $user = $this->userRepository->getAll();
+        $response = $this->response->item($user,new UserTransformer());
+        return $response;
+    }
+
+    public function showUser($id){
+        $user = $this->userRepository->getById($id);
         $response = $this->response->item($user,new UserTransformer());
         return $response;
     }

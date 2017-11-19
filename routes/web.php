@@ -25,6 +25,7 @@ $api->post('token','\Laravel\Passport\Http\Controllers\AccessTokenController@iss
     $api->group(['namespace'=>'\App\Http\Controllers','middleware'=>['cors']],function($api){
         //controller routes
         $api->get('users','UserController@show');
+        $api->get('users/{id}','UserController@showUser');
 
     });
 
